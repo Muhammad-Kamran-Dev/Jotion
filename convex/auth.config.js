@@ -1,8 +1,7 @@
 export default {
   providers: [
     {
-      domain:
-        "https://noble-aphid-75.clerk.accounts.dev",
+      domain: "https://logical-dory-15.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],
