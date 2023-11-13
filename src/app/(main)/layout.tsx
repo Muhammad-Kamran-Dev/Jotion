@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import Navigation from "./_components/Navigation";
 
-const mainLayout = ({ children }: PropsWithChildren) => {
+const MainLayout = ({ children }: PropsWithChildren) => {
   const { isLoading, isAuthenticated } = useConvexAuth();
 
   if (isLoading)
@@ -25,4 +25,4 @@ const mainLayout = ({ children }: PropsWithChildren) => {
   );
 };
 
-export default mainLayout;
+export default MainLayout;
