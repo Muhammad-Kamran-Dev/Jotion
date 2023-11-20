@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx convex deploy --cmd 'npm run build'",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
-    
   },
 
   "dependencies": {
