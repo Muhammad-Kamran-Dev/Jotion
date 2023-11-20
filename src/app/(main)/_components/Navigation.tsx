@@ -1,21 +1,35 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
+import { useParams, usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import Item from "./Item";
+import { toast } from "sonner";
 
 const Navigation = () => {
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const create = useMutation(api.documents.create);
+  const documents = useQuery(api.documents.get);
+
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
   const navbarRef = useRef<ElementRef<"div">>(null);
-
-  const [isResetting, setIsResetting] = useState<boolean>(false);
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(isMobile);
+  const [isResetting, setIsResetting] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
   useEffect(() => {
     if (isMobile) {
@@ -93,6 +107,16 @@ const Navigation = () => {
       setTimeout(() => setIsResetting(false), 300);
     }
   };
+
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note",
+    });
+  };
   return (
     <>
       <aside
@@ -115,8 +139,15 @@ const Navigation = () => {
         </div>
         <div className="">
           <UserItem />
+          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
-        <div className="mt-4">Documents</div>
+        <div className="mt-4">
+          {documents?.map((doc) => (
+            <p key={doc._id}>{doc.title}</p>
+          ))}
+        </div>
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}

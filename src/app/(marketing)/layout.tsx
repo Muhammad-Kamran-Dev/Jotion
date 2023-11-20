@@ -1,7 +1,6 @@
-import { PropsWithChildren } from "react";
 import Navbar from "./_components/Navbar";
 
-const MarketingLayout = ({ children }: PropsWithChildren) => {
+const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full dark:bg-[#1F1F1F]">
       <Navbar />
