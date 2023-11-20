@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "npx convex deploy"
+    "postinstall": "npx convex dev"
   },
 
   "dependencies": {
