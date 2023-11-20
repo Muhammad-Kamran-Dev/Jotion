@@ -1,3 +1,5 @@
+"use client";
+
 const DocumentList = () => {
   return <div>DocumentList</div>;
 };
